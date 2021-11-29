@@ -1,9 +1,12 @@
 import React from 'react';
+import Post from '../components/Post';
+import Header from '../components/Header';
 
 const PostList =() =>{
     return(
         <>
-            목록페이지
+            <Header></Header>
+            <Post></Post>
         </>
     );
 }
