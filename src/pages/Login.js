@@ -1,8 +1,15 @@
 import React from 'react';
 import Header from '../components/Header';
 import { Grid,Input,Text ,Button} from '../elements/index';
+import { getCookie, setCookie, deleteCookie } from '../shared/Cookie';
 
 const Login = (props) => {
+
+    const login = () => {
+        setCookie("user_id", "luwa", 3);
+        setCookie("user_pwd", "1234", 3);
+    }
+   
     return(
         <>
            <Header></Header>
@@ -14,6 +21,7 @@ const Login = (props) => {
                 
                 <Button text="로그인" _onClick={()=>{
                 console.log('로그인버튼 눌렀!');
+                login();
             }}></Button>
             </Grid>
             

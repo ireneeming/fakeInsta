@@ -2,12 +2,14 @@ import React from 'react';
 import {Grid,Image,Text} from '../elements/index';
 
 const Post = (props) => {
+    
+   
     return(
 
         <>
             <Grid>
                 <Grid  padding="16px" is_flex>
-                    <Image shape="circle" src={props.r} /> 
+                    <Image shape="circle" src={props.image_url} /> 
                     <Text bold>
                         {props.user_info.user_name}
                     </Text>
@@ -39,7 +41,7 @@ Post.defaultProps = {
         user_profile:'https://images.unsplash.com/photo-1511044568932-338cba0ad803?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
 
     },
-    image_url:'https://images.unsplash.com/photo-1511044568932-338cba0ad803?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+    image_url:'https://images.unsplash.com/photo-1548247416-ec66f4900b2e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80',
     contents:'고먐미',
     comment_cnt : 10,
     insert_dt : '2021-11-29 17:00:00'
