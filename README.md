@@ -12,9 +12,9 @@
 컴포넌트 페이지 구성/필수기능: 
 
 
-Register.js / email, pw 체크 
-Login.js / 미가입 시 로그인버튼 비활성화 
-Main.js(list페이지) / 게시글 목록, 무한스크롤, 3가지타입 메인스타일 - 기획서참고 
-Write.js / 레이아웃선택버튼, 3가지 레이아웃 
-View.js 
-모든페이지는 반응형 
+* Register.js / email, pw 체크
+* Login.js / 미가입 시 로그인버튼 비활성화
+* Main.js(list페이지) / 게시글 목록, 무한스크롤, 3가지타입 메인스타일 - 기획서참고 
+* Write.js / 레이아웃선택버튼, 3가지 레이아웃 
+* View.js 
+* 모든페이지는 반응형 
