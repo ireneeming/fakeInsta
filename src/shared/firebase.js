@@ -1,8 +1,10 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 
+export const apiKey = "AIzaSyB3Nq15ShYhqhyfwoPzt-xalpzWjOxtlaU";
+
 const firebaseConfig = {
-  apiKey: "AIzaSyB3Nq15ShYhqhyfwoPzt-xalpzWjOxtlaU",
+  apiKey: apiKey,
   authDomain: "fakeinsta-29b6b.firebaseapp.com",
   projectId: "fakeinsta-29b6b",
   storageBucket: "fakeinsta-29b6b.appspot.com",

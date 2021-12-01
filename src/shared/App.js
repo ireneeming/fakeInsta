@@ -12,8 +12,23 @@ import { Grid } from "../elements";
 import {ConnectedRouter} from 'connected-react-router';
 import {history} from '../redux/configureStore';
 
+import {actionCreators as userActions} from '../redux/modules/user';
+import {useDispatch} from 'react-redux';
+import {apiKey} from './firebase';
 
 function App() {
+
+  const dispatch = useDispatch();
+  const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
+  const is_session = sessionStorage.getItem(_session_key)? true:false;
+
+  React.useEffect(()=>{
+    
+    if(is_session){
+      dispatch(userActions.loginCheckFB());
+    }
+
+  },[]);
 
 
   return (

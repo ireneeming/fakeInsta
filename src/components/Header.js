@@ -1,20 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router';
 import { getCookie, deleteCookie } from '../shared/Cookie';
 
 import { actionCreators as userActions } from '../redux/modules/user';
 
 import { useSelector, useDispatch } from 'react-redux';
 
+import { history } from '../redux/configureStore';
+import { apiKey } from '../shared/firebase';
+
 const Header = (props) => {
-    const history = useHistory();
+   
     // const [is_login, setIsLogin] = React.useState(false);
     const dispatch = useDispatch();
     const is_login = useSelector((state)=> state.user.is_login);
 
+    //세션 키 가져오기
+    const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
+    //세션 키 잘 가져오는지 확인하기
+    //console.log(_session_key)
+    //console.log(sessionStorage.getItem(_session_key));
+
+    const is_session = sessionStorage.getItem(_session_key)? true:false;
+
+    console.log(is_session)
     
-    if(is_login){
+    if(is_login && is_session){
         return (
             <>
             <HeaderWrap>
