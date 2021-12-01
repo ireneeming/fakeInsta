@@ -5,7 +5,7 @@ import Header from '../components/Header';
 const PostList =() =>{
     return(
         <>
-            <Header></Header>
+            
             <Post></Post>
         </>
     );

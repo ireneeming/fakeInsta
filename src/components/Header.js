@@ -3,22 +3,17 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router';
 import { getCookie, deleteCookie } from '../shared/Cookie';
 
+import { actionCreators as userActions } from '../redux/modules/user';
+
+import { useSelector, useDispatch } from 'react-redux';
 
 const Header = (props) => {
     const history = useHistory();
-    const [is_login, setIsLogin] = React.useState(false);
+    // const [is_login, setIsLogin] = React.useState(false);
+    const dispatch = useDispatch();
+    const is_login = useSelector((state)=> state.user.is_login);
 
-    React.useEffect(()=>{
-
-        let cookie = getCookie("user_id");
-        console.log(cookie);
-
-        if(cookie){
-            setIsLogin(true);
-        }else{
-            setIsLogin(false);
-        }
-    },[]);
+    
     if(is_login){
         return (
             <>
@@ -27,7 +22,7 @@ const Header = (props) => {
                 <HeaderBtnWrap>
                     <HeaderBtn onClick = {()=>{history.push('/register')}}>내 정보</HeaderBtn>
                     <HeaderBtn onClick = {()=>{history.push('/')}}>알림</HeaderBtn>
-                    <HeaderBtn onClick = {()=>{deleteCookie("user_id");}}>로그아웃</HeaderBtn>
+                    <HeaderBtn onClick = {()=>{dispatch(userActions.logOut({}));}}>로그아웃</HeaderBtn>
                 </HeaderBtnWrap>
             </HeaderWrap>
     

@@ -8,7 +8,7 @@ const Post = (props) => {
 
         <>
             <Grid>
-                <Grid  padding="16px" is_flex>
+                <Grid  padding="16px" is_flex="flex; justify-content:space-between;">
                     <Image shape="circle" src={props.image_url} /> 
                     <Text bold>
                         {props.user_info.user_name}
