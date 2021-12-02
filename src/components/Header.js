@@ -9,6 +9,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { history } from '../redux/configureStore';
 import { apiKey } from '../shared/firebase';
 
+import Write from "../components/Write";
+import { Button, Grid } from '../elements';
 const Header = (props) => {
    
     // const [is_login, setIsLogin] = React.useState(false);
@@ -29,13 +31,15 @@ const Header = (props) => {
         return (
             <>
             <HeaderWrap>
-                <Logo onClick = {()=>{history.push('/')}}></Logo>
+                <Logo onClick = {()=>{history.push('/')}}>Hellomingure</Logo>
                 <HeaderBtnWrap>
                     <HeaderBtn onClick = {()=>{history.push('/register')}}>내 정보</HeaderBtn>
                     <HeaderBtn onClick = {()=>{history.push('/')}}>알림</HeaderBtn>
-                    <HeaderBtn onClick = {()=>{dispatch(userActions.logOut({}));}}>로그아웃</HeaderBtn>
-                </HeaderBtnWrap>
+                    
+                    <HeaderBtn onClick = {()=>{dispatch(userActions.logoutFB({}));}}>로그아웃</HeaderBtn>
+                </HeaderBtnWrap>  
             </HeaderWrap>
+            <Button is_addBtn text='+' onClick={()=>{history.push('/postwrite');}}/>  
     
             </>
         );
@@ -71,7 +75,9 @@ const HeaderBtnWrap = styled.div`
 const Logo = styled.div`
 width:40px;
 height:40px;
-background:#bbb;
+
+font-size:30px;
+font-weight:bold;
 `;
 
 const HeaderBtn = styled.div`

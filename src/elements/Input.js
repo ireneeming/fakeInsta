@@ -3,7 +3,20 @@ import styled from 'styled-components';
 import { Text , Grid} from './index';
 
 const Input = (props) => {
-    const {label, placeholder,type, _onChange} = props;
+    const {label, placeholder,type, _onChange,multiLine} = props;
+
+    if(multiLine){
+        return (
+            <Grid>
+                <Text size="16px" margin="0">{label}</Text>
+                <Textarea rows="10"></Textarea>
+    
+                
+            </Grid>
+        );
+    }
+    
+
     return(
         <>
             <Grid>
@@ -40,4 +53,8 @@ box-sizing:border-box;
 }
 `;
 
+const Textarea = styled.textarea`
+width:100%;
+
+`;
 export default Input;

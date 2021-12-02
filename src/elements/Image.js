@@ -13,7 +13,7 @@ const Image = (props) => {
         <ImageCircle {...styles}></ImageCircle>
        );
     }
-    if(shape === "ractangle"){
+    if(shape === "rectangle"){
         return(
             <AspectOutter>
                 <AspectInner {...styles}></AspectInner>

@@ -3,7 +3,7 @@ import { Grid,Input,Text,Button } from '../elements/index';
 
 import { useDispatch } from 'react-redux';
 import { actionCreators as userActions } from '../redux/modules/user';
-
+import { emailCheck } from '../shared/common';
 
 const Register = (props) => {
     const dispatch = useDispatch();
@@ -18,10 +18,14 @@ const Register = (props) => {
 
         
         if( id==='' || pwd === '' || user_name === ''){
-            
+            window.alert("아이디, 비밀번호, 닉네임을 모두 입력해주세요.");
             return;
         }
+        if(!emailCheck(id)){
+            window.alert("이메일 형식에 맞지 않습니다.");
+        }
         if(pwd !== pwd_check){
+            window.alert("비밀번호와 비밀번호 확인이 맞지 않습니다.");
             return;
         }
         dispatch(userActions.registerFB(id, pwd, user_name));

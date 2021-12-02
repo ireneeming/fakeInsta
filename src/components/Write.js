@@ -1,13 +1,12 @@
 import React from 'react';
-import {Grid,Image,Text} from '../elements/index';
+import {Grid,Image,Text,Input,Button} from '../elements/index';
 
-const Post = (props) => {
-    
-   
+
+const Write = (props) => {
     return(
 
         <>
-            <Grid>
+            <Grid >
                 <Grid  padding="16px" is_flex="flex; justify-content:space-between;">
                     <Image shape="circle" src={props.image_url} /> 
                     <Text bold>
@@ -21,22 +20,24 @@ const Post = (props) => {
                    </Text>
                 </Grid>
                 <Grid>
-                    <Image shape="rectangle" src={props.r}></Image>
+                    <Image shape="ractangle" src={props.r}></Image>
                 </Grid>
                 <Grid  padding="16px">
                     <Text bold>
                        댓글 : {props.comment_cnt}개
                    </Text>
                 </Grid>
+                <Grid is_flex  padding="16px">
+                    <Input></Input>
+                    <Button width="50px"></Button>
+                </Grid>
                 
             </Grid>
-            
         </>
     );
 }
 
-//부모가 props를 주지 않아도 디폴트로 나타내는 값 미리 지정하기
-Post.defaultProps = {
+Write.defaultProps = {
     user_info: {
         user_name:'minji',
         user_profile:'https://images.unsplash.com/photo-1511044568932-338cba0ad803?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
@@ -47,5 +48,4 @@ Post.defaultProps = {
     comment_cnt : 10,
     insert_dt : '2021-11-29 17:00:00'
 }
-
-export default Post;
+export default Write;

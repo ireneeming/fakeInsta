@@ -29,6 +29,6 @@ const P = styled.p`
 color:${(props)=> props.color};
 font-size: ${(props)=> props.size};
 font-weight:${(props)=> props.bold? "600" : "400"};
-margin: ${(props)=>props.margin? `${props.margin}` : ""}
+margin: ${(props)=>props.margin? `${props.margin}` : ""};
 `;
 export default Text;
