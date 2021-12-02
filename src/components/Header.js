@@ -31,15 +31,15 @@ const Header = (props) => {
         return (
             <>
             <HeaderWrap>
-                <Logo onClick = {()=>{history.push('/')}}>Hellomingure</Logo>
+                <Logo onClick = {()=>{history.push('/')}}>루와, 일루와</Logo>
                 <HeaderBtnWrap>
                     <HeaderBtn onClick = {()=>{history.push('/register')}}>내 정보</HeaderBtn>
-                    <HeaderBtn onClick = {()=>{history.push('/')}}>알림</HeaderBtn>
+                    <HeaderBtn onClick = {()=>{history.push('/noti')}}>알림</HeaderBtn>
                     
                     <HeaderBtn onClick = {()=>{dispatch(userActions.logoutFB({}));}}>로그아웃</HeaderBtn>
                 </HeaderBtnWrap>  
             </HeaderWrap>
-            <Button is_addBtn text='+' onClick={()=>{history.push('/postwrite');}}/>  
+            
     
             </>
         );
@@ -48,7 +48,7 @@ const Header = (props) => {
     return (
         <>
         <HeaderWrap>
-            <Logo onClick = {()=>{history.push('/')}}></Logo>
+            <Logo onClick = {()=>{history.push('/')}}>루와, 일루와</Logo>
             <HeaderBtnWrap>
                 <HeaderBtn onClick = {()=>{history.push('/register')}}>회원가입</HeaderBtn>
                 <HeaderBtn onClick = {()=>{history.push('/login')}}>로그인</HeaderBtn>
@@ -73,7 +73,7 @@ const HeaderBtnWrap = styled.div`
 *display:flex;
 `;
 const Logo = styled.div`
-width:40px;
+
 height:40px;
 
 font-size:30px;

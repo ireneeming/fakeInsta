@@ -2,13 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Button = (props) => {
-    const {text, _onClick,is_addBtn} = props;
+    const {text, _onClick,is_addBtn, is_editBtn} = props;
 
     if(is_addBtn){
         return(
             <AddButton onClick={_onClick}>
                 {text} 
             </AddButton>
+        );
+    }
+
+    if(is_editBtn){
+        return(
+            <EditButton onClick={_onClick}>
+                {text} 
+            </EditButton>
         );
     }
 
@@ -53,6 +61,14 @@ text-align:center;
 cursor:pointer;
 font-weight:700;
 
+`;
+
+const EditButton = styled.div`
+
+padding:5px 10px;
+background: #808080;
+color:#fff;
+text-align:center;
 `;
 
 

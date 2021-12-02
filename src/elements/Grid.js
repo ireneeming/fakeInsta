@@ -39,7 +39,6 @@ const GridBox = styled.div`
     ${(props)=> props.padding ? `padding:${props.padding}` : ""};
     margin:${(props)=> props.margin ? `${props.margin}`:""};
     ${(props)=> props.bg ? `background:${props.bg}`:""};
-    
     display:${(props)=> props.is_flex ? `${props.is_flex}`:""};
 
 `;

@@ -21,6 +21,7 @@ import {useDispatch} from 'react-redux';
 import {apiKey} from './firebase';
 import PostWrite from "../pages/PostWrite";
 import PostDetail from "../pages/PostDetail";
+import Notification from "../pages/Notification";
 
 
 function App() {
@@ -46,14 +47,17 @@ function App() {
           <Route path="/" exact component ={PostList}/>
           <Route path="/register" exact component ={Register}/>
           <Route path="/login" exact component ={Login}/>  
-          
-          <Permit>            
-             
-             <Route path="/detail/:id" exact component ={PostDetail}/>  
-             <Route path="/write" exact component ={PostWrite}/>      
-          </Permit>
+          <Route path="/detail/:id" exact component ={PostDetail}/>  
+          <Route path="/write" exact component ={PostWrite}/>
+          {/* 수정페이지      */}      
+          <Route path="/write/:id" exact component ={PostWrite}/> 
+          {/* /수정페이지      */}
+          <Route path="/noti" exact component ={Notification}/>      
         </ConnectedRouter>
       </Grid>
+      <Permit>
+        <Button is_addBtn text='+' _onClick={()=>{history.push('/write');}}/>  
+      </Permit>
 </>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
-import {Grid,Image,Text} from '../elements/index';
+import {Grid,Image,Text,Button} from '../elements/index';
+import {history} from '../redux/configureStore';
 
 const Post = (props) => {
     
@@ -8,12 +9,16 @@ const Post = (props) => {
 
         <>
             <Grid>
-                <Grid  padding="16px" is_flex="flex; justify-content:space-between;">
-                    <Image shape="circle" src={props.image_url} /> 
+                <Grid  padding="16px" is_flex="flex; justify-content:space-between;align-items:center;">
+                    <Image shape="circle" src={props.user_profile} /> 
                     <Text bold>
                         {props.user_info.user_name}
                     </Text>
                     <Text>{props.insert_dt}</Text>
+                    {
+                        props.is_me && 
+                        <Button is_editBtn text="수정"  _onClick={()=>{history.push(`/write/${props.id}`)}} /> 
+                    }
                 </Grid>
                 <Grid padding="16px">
                    <Text>
@@ -21,7 +26,7 @@ const Post = (props) => {
                    </Text>
                 </Grid>
                 <Grid>
-                    <Image shape="rectangle" src={props.r}></Image>
+                    <Image shape="rectangle" src={props.image_url}></Image>
                 </Grid>
                 <Grid  padding="16px">
                     <Text bold>
