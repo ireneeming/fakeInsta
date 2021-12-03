@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Text , Grid} from './index';
 
 const Input = (props) => {
-    const {label, placeholder,type, _onChange,multiLine,value,is_Submit,onSubmit} = props;
+    const {label, placeholder,type,name,radio, _onChange,checked,multiLine,value,is_Submit,onSubmit} = props;
 
     if(multiLine){
         return (
@@ -15,6 +15,9 @@ const Input = (props) => {
             </Grid>
         );
     }
+
+    
+    
     
 
     return(
@@ -31,10 +34,11 @@ const Input = (props) => {
 
 
 Input.defaultProps = {
-    label : '텍스트',
+    label : '',
     placeholder:'텍스트를 입력해주세요.',
     type:'text',
     value:'',
+    name:'',
     is_Submit:false, 
     onSubmit:false,
     _onChange : () => {}
@@ -61,4 +65,9 @@ const Textarea = styled.textarea`
 width:100%;
 
 `;
+
+
+
+
+
 export default Input;

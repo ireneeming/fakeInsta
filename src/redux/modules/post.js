@@ -27,6 +27,9 @@ const initialState = {
 
 
 
+  
+
+
 const initialPost = {
     //포스트에 대한 내용
     

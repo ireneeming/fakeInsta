@@ -1,15 +1,34 @@
 import React from "react";
 import {Grid, Text, Button, Image, Input} from "../elements";
+import styled from 'styled-components';
 import Upload from "../shared/Upload";
 import { useSelector, useDispatch } from "react-redux";
 import { setCookie } from "../shared/Cookie";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as imageActions } from "../redux/modules/image";
+import Layout from "../components/Layout";
+
 
 
 
 
 const PostWrite = (props) => {
+
+  const [currentTab, setCurrentTab] = React.useState(0);
+    
+  const menuArr = [
+    { name: 'Left', option: <Layout/> },
+    { name: 'Center', option: 'Tab menu TWO' },
+    { name: 'Right', option: 'Tab menu THREE' },
+  ];
+
+    const selectMenuHandler= (index) => {
+      console.log("눌렀어!!!!!!!!!!!!!!!!!",index )
+      setCurrentTab(index);
+    }
+
+
+
     const {history} = props;
     const dispatch = useDispatch();
     const is_login = useSelector((state)=>state.user.is_login);
@@ -67,6 +86,27 @@ const PostWrite = (props) => {
           <Upload/>
         </Grid>
 
+        <Grid is_flex="flex">
+          {/* 레이아웃 선택 부분 */}
+          
+          <TabMenu>
+            {menuArr.map((ele, index)=>{
+            return (
+              <li
+              key={index}
+              className={currentTab === index ? "submenu focused" : "submenu"}
+              onClick={()=> selectMenuHandler(index)}
+            >
+              <Label><Radio type="radio" name="layout" value={index} /><span> {ele.name}</span></Label>
+            </li>
+              )
+          })}
+        </TabMenu>
+            <Grid>
+              {menuArr[currentTab].option}
+              
+            </Grid>
+        </Grid>
         <Grid>
           <Grid padding="16px">
             <Text margin="0px" size="24px" bold>
@@ -90,5 +130,43 @@ const PostWrite = (props) => {
       </>
     );
 }
+const Radio = styled.input`
+display:none;
+
+
+&[type="radio"]+span{
+    display:block;
+    padding:10px;
+    cursor:pointer;
+    border:1px solid #bbb;
+    margin-left:-1px;
+    font-weight:600;
+}
+
+&[type="radio"]:checked+span{
+    background:#2a9257;
+    color:#fff;
+}
+`;
+const Label = styled.label`
+width:100%;
+text-align:center;
+font-size:1em;
+`;
+const TabMenu = styled.ul`
+
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  align-items: center;
+  list-style: none;
+
+  .submenu {
+    width:100% auto;
+    padding: 15px 10px;
+    cursor: pointer;
+  }
+`;
 
 export default PostWrite;

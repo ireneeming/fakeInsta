@@ -30,7 +30,7 @@ const Post = (props) => {
                    </Text>
                 </Grid>
                 <Grid>
-                    <Image shape="rectangle" src={props.image_url}></Image>
+                    <Image shape="rectangle" src={props.image_url} _onClick={()=>{history.push(`/post/${props.id}`); }}></Image>
                 </Grid>
                 <Grid  padding="16px">
                     <Text bold>
