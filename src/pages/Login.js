@@ -4,7 +4,7 @@ import { Grid,Input,Text ,Button} from '../elements/index';
 import { getCookie, setCookie, deleteCookie } from '../shared/Cookie';
 
 import { useDispatch } from 'react-redux';
-import {actionCreators as userActions} from '../redux/modules/user'; 
+import user, {actionCreators as userActions} from '../redux/modules/user'; 
 import { emailCheck } from '../shared/common';
 
 const Login = (props) => {
@@ -25,7 +25,9 @@ const Login = (props) => {
 
         if(!emailCheck(id)){
             window.alert("이메일 형식에 맞지 않습니다.");
+        
         }
+        
         dispatch(userActions.loginFB(id, pwd)); 
 
 

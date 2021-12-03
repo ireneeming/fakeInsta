@@ -41,13 +41,13 @@ function App() {
 
   return (
       <>
-      <Grid width="700px" margin="0 auto" position="relative">
+      <Grid maxWidth="700px" margin="0 auto" >
         <Header ></Header>
         <ConnectedRouter history={history}>
           <Route path="/" exact component ={PostList}/>
           <Route path="/register" exact component ={Register}/>
           <Route path="/login" exact component ={Login}/>  
-          <Route path="/detail/:id" exact component ={PostDetail}/>  
+          <Route path="/post/:id" exact component ={PostDetail}/>  
           <Route path="/write" exact component ={PostWrite}/>
           {/* 수정페이지      */}      
           <Route path="/write/:id" exact component ={PostWrite}/> 

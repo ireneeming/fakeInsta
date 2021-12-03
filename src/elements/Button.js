@@ -35,7 +35,7 @@ Button.defaultProps={
 const BtnSubmit = styled.button`
 line-height:50px; 
 padding:5px 10px;
-font-size:20px;
+font-size:1.2em;
 color:#fff;
 width:100%;
 background:#000;
@@ -69,6 +69,7 @@ padding:5px 10px;
 background: #808080;
 color:#fff;
 text-align:center;
+word-break:keep-all;
 `;
 
 

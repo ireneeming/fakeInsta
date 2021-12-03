@@ -8,15 +8,20 @@ import { actionCreators as imageActions } from "./image";
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
 const EDIT_POST = "EDIT_POST";
+const LOADING = "LOADING"
 
-const setPost = createAction(SET_POST, (post_list)=> ({post_list}) );
+const setPost = createAction(SET_POST, (post_list, paging)=> ({post_list, paging}) );
 const addPost = createAction(ADD_POST, (post)=> ({post})) ;
 const editPost = createAction(EDIT_POST, (post_id, post)=>({post_id, post}));
+const loading = createAction(LOADING, (is_loading)=>({is_loading}));
 
 
 const initialState = {
     //리듀서가 사용할
     list: [],
+    paging: {start: null, next: null, size:2},
+    is_loading: false, 
+
 
 };
 
@@ -132,9 +137,60 @@ const addPostFB = (contents="") =>{
     }
 }
 
-const getPostFB = () => {
+const getPostFB = (start = null, size = 2) => {
     return function (dispatch, getState,{history}) {
+
+        let _paging = getState().post.paging;
+
+        if(_paging.start && !_paging.next){
+            return;
+        }
+
+        dispatch(loading(true));
         const postDB = firestore.collection("post");
+
+        let query = postDB.orderBy('insert_dt','desc');
+
+        if(start){
+            query = query.startAt(start);
+        }
+
+
+        query
+        .limit(size+1)
+        .get()
+        .then(docs => {
+            let post_list =[];
+
+            let paging = {
+                start:docs.docs[0],
+                next: docs.docs.length === size+1 ? docs.docs[docs.docs.length-1] : null,
+                size: size,
+            }
+
+
+            docs.forEach((doc)=>{
+                //firestore 에서 가지고온 값
+                let _post = doc.data();
+
+                //딕셔너리 값들을 배열로 만들어줌
+                let post = Object.keys(_post).reduce((acc,cur)=>{
+
+                    if(cur.indexOf('user_')!==-1){
+                        return{...acc,user_info: {...acc.user_info,[cur]: _post[cur]}};
+                    }
+                    return {...acc, [cur]:_post[cur]}
+                }, {id:doc.id, user_info:{}});
+
+                post_list.push(post);
+               
+            });
+            post_list.pop();
+            dispatch(setPost(post_list, paging));
+
+        });
+
+        return;
 
         postDB.get().then((docs)=>{
             let post_list =[];
@@ -160,12 +216,57 @@ const getPostFB = () => {
     }
 }
 
+const getOnePostFB = (id)=>{
+    return function(dispatch, getState, {history}){
+        const postDB = firestore.collection("post");
+        postDB.doc(id).get().then(doc => {
+            console.log(doc);
+            console.log(doc.data());
+            
+            let _post = doc.data();
+            let post = Object.keys(_post).reduce(
+              (acc, cur) => {
+                if (cur.indexOf("user_") !== -1) {
+                  return {
+                    ...acc,
+                    user_info: { ...acc.user_info, [cur]: _post[cur] },
+                  };
+                }
+                return { ...acc, [cur]: _post[cur] };
+              },
+              { id: doc.id, user_info: {} }
+            );
+
+            dispatch(setPost([post]));
+        })
+    }
+}
+
 
 //reducer
 export default handleActions(
     {
         [SET_POST] : (state,action)=> produce(state, (draft)=>{
-            draft.list = action.payload.post_list;
+            draft.list.push (...action.payload.post_list);
+
+            draft.list = draft.list.reduce((acc,cur)=>{
+                if(acc.findIndex(a => a.id === cur.id) === -1){
+                    //중복된 값이 없을 때
+                    return [...acc, cur];
+                }else{
+                    acc[acc.findIndex((a) => a.id === cur.id)] = cur;
+
+                    return acc;
+                }
+            },[]);
+
+            if(action.payload.paging){
+                draft.paging = action.payload.paging;
+            }
+
+
+            
+            draft.is_loading = false;
         }),
         [ADD_POST] : (state,action)=> produce(state,(draft)=>{
             draft.list.unshift(action.payload.post)
@@ -173,6 +274,10 @@ export default handleActions(
         [EDIT_POST] : (state,action)=> produce(state,(draft)=>{
             let idx = draft.list.findIndex((p)=> p.id === action.payload.post_id);
             draft.list[idx] = {...draft.list[idx], ...action.payload.post};
+        }),
+        [LOADING] : (state,action)=> produce(state,(draft)=>{
+           draft.is_loading = action.payload.is_loading;
+          
         }),
 
     },
@@ -187,6 +292,8 @@ const actionCreators={
     getPostFB,
     addPostFB,
     editPostFB,
+    getOnePostFB,
+
 }
 
 export {actionCreators};

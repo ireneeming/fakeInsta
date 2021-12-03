@@ -38,8 +38,8 @@ const Register = (props) => {
             <Text size="32px" bold>회원가입</Text>
             <Input label="아이디" placeholder="아이디를 입력하세요" _onChange={(e)=>{setId(e.target.value);}}/>
             <Input label="닉네임" placeholder="닉네임을 입력하세요" _onChange={(e)=>{setUserName(e.target.value);}}/>
-            <Input label="비밀번호" placeholder="비밀번호를 입력하세요" _onChange={(e)=>{setPwd(e.target.value);}}/>
-            <Input label="비밀번호 확인" placeholder="비밀번호 일치확인" _onChange={(e)=>{setPwdCheck(e.target.value);}}/>
+            <Input type="password" label="비밀번호" placeholder="비밀번호를 입력하세요" _onChange={(e)=>{setPwd(e.target.value);}}/>
+            <Input type="password" label="비밀번호 확인" placeholder="비밀번호 일치확인" _onChange={(e)=>{setPwdCheck(e.target.value);}}/>
 
             
             <Button text="회원가입" _onClick={()=>{

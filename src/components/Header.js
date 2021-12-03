@@ -33,7 +33,7 @@ const Header = (props) => {
             <HeaderWrap>
                 <Logo onClick = {()=>{history.push('/')}}>루와, 일루와</Logo>
                 <HeaderBtnWrap>
-                    <HeaderBtn onClick = {()=>{history.push('/register')}}>내 정보</HeaderBtn>
+                    <HeaderBtn onClick = {()=>{}}>내 정보</HeaderBtn>
                     <HeaderBtn onClick = {()=>{history.push('/noti')}}>알림</HeaderBtn>
                     
                     <HeaderBtn onClick = {()=>{dispatch(userActions.logoutFB({}));}}>로그아웃</HeaderBtn>
@@ -65,7 +65,7 @@ min-width:250px;
 position:relative;
 display:flex;
 justify-content:space-between;
-padding:16px;
+padding:1em;
 box-sizing:border-box;
 `;
 
@@ -76,7 +76,7 @@ const Logo = styled.div`
 
 height:40px;
 
-font-size:30px;
+font-size:1.5em;
 font-weight:bold;
 `;
 
@@ -86,6 +86,7 @@ const HeaderBtn = styled.div`
     background:#bbb;
     color:#222;
     margin-left:10px;
+    font-size:0.8em;
 
 }
 `;

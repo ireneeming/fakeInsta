@@ -52,6 +52,7 @@ const AspectInner = styled.div`
     background-image:${(props)=>props.src? `url('${props.src}')` : ""};
     background-size:cover;
     background-repeat: no-repeat;
+    background-position:center;
     `;
 
 

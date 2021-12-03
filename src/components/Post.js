@@ -10,14 +10,18 @@ const Post = (props) => {
         <>
             <Grid>
                 <Grid  padding="16px" is_flex="flex; justify-content:space-between;align-items:center;">
-                    <Image shape="circle" src={props.user_profile} /> 
-                    <Text bold>
-                        {props.user_info.user_name}
-                    </Text>
-                    <Text>{props.insert_dt}</Text>
+                    <Grid is_flex="flex;align-items:center;">
+                        <Image shape="circle" src={props.user_profile} /> 
+                        <Text bold margin="0 0 0 10px" size="1em">
+                            {props.user_info.user_name}
+                        </Text>
+                    </Grid>
+                    <Grid>
+                        <Text align="right" margin="0 8px 0 0">{props.insert_dt.slice(0,-8)}</Text>
+                    </Grid>
                     {
                         props.is_me && 
-                        <Button is_editBtn text="수정"  _onClick={()=>{history.push(`/write/${props.id}`)}} /> 
+                        <Button is_editBtn text="수정" _onClick={()=>{history.push(`/write/${props.id}`)}} /> 
                     }
                 </Grid>
                 <Grid padding="16px">
