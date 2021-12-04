@@ -8,40 +8,26 @@ import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as imageActions } from "../redux/modules/image";
 import Layout from "../components/Layout";
 
-
-
-
-
+ 
 const PostWrite = (props) => {
+  const {history} = props;
+  const dispatch = useDispatch();
 
-  const [currentTab, setCurrentTab] = React.useState(0);
+  const is_login = useSelector((state)=>state.user.is_login);
+  const preview = useSelector((state)=> state.image.preview);
+  const post_list = useSelector((state)=>state.post.list);
     
-  const menuArr = [
-    { name: 'Left', option: <Layout/> },
-    { name: 'Center', option: 'Tab menu TWO' },
-    { name: 'Right', option: 'Tab menu THREE' },
-  ];
 
-    const selectMenuHandler= (index) => {
-      console.log("눌렀어!!!!!!!!!!!!!!!!!",index )
-      setCurrentTab(index);
-    }
+  const post_id = props.match.params.id;
+  const is_edit = post_id ? true:false;
+  
+  let _post = is_edit ? post_list.find((p)=>p.id === post_id) : null;
 
+  const [contents, setContents] = React.useState(_post? _post.contents: "");
+  const [layout, setLayout] = React.useState(_post? _post.layout: "center");
 
-
-    const {history} = props;
-    const dispatch = useDispatch();
-    const is_login = useSelector((state)=>state.user.is_login);
-    const preview = useSelector((state)=> state.image.preview);
-    const post_list = useSelector((state)=>state.post.list);
-
-    const post_id = props.match.params.id;
-    
-    const is_edit = post_id ? true:false;
-    
-    let _post = is_edit ? post_list.find((p)=>p.id === post_id) : null;
-    console.log(_post);
-    
+ 
+  
     React.useEffect(()=>{
       if(is_edit && !_post){
         console.log('post정보가 없어요');
@@ -54,20 +40,54 @@ const PostWrite = (props) => {
 
     },[]);
 
-    const [contents, setContents] = React.useState(_post? _post.contents: "");
+    
+      
+    const menuArr = [
+      { name: 'Left',value:'left',layout:'left'},
+      { name: 'Center',value:'center',layout:'center'},
+      { name: 'Right',value:'right',layout:'right' },
+    ];
+
+      // const selectMenuHandler= (index) => {
+      //   console.log("눌렀어!!!!!!!!!!!!!!!!!",index )
+      //   setLayout(index);
+       
+      // }
+
+
+
 
     const addPost = () => {
       console.log("게시글작성버튼누름")
-      dispatch(postActions.addPostFB(contents));
+      console.log()
+      if(!contents){
+        window.alert("게시글을 넣어주세요");
+       
+
+        
+      }else if(!preview){
+        window.alert("이미지를 넣어주세요")
+      }else{
+        dispatch(postActions.addPostFB(contents, layout));
+      }
+      
     }
 
     const editPost = () => {
-      dispatch(postActions.editPostFB(post_id,{contents: contents}));
+      dispatch(postActions.editPostFB(post_id,{contents: contents, layout}));
     }
 
     const changeContents = (e) => {
     setContents(e.target.value);
 }
+
+  const is_checked = (e) => {
+    if(e){
+      setLayout(e)
+      console.log("checked 눌림")
+    }
+  }
+
     console.log(contents)
     if(!is_login){
       return(
@@ -86,26 +106,25 @@ const PostWrite = (props) => {
           <Upload/>
         </Grid>
 
-        <Grid is_flex="flex">
+        <Grid is_flex="flex;">
           {/* 레이아웃 선택 부분 */}
-          
-          <TabMenu>
             {menuArr.map((ele, index)=>{
             return (
-              <li
-              key={index}
-              className={currentTab === index ? "submenu focused" : "submenu"}
-              onClick={()=> selectMenuHandler(index)}
-            >
-              <Label><Radio type="radio" name="layout" value={index} /><span> {ele.name}</span></Label>
-            </li>
+              
+              <Label>
+                <Radio 
+                
+                value={layout === menuArr[index].value ? "submenu focused" : "submenu"}
+                // onClick={()=> {selectMenuHandler(index);}}
+                onChange={()=>{is_checked(menuArr[index].value)}}
+                type="radio" name="layout"/><span> {ele.name}</span></Label>
+            
               )
           })}
-        </TabMenu>
-            <Grid>
-              {menuArr[currentTab].option}
-              
-            </Grid>
+        
+
+     
+            
         </Grid>
         <Grid>
           <Grid padding="16px">
@@ -113,10 +132,11 @@ const PostWrite = (props) => {
               미리보기
             </Text>
           </Grid>
+          <Grid>
+              <Layout layout ={layout}/>
+          </Grid>
 
-          <Image shape="rectangle" src={preview ? preview :"https://via.placeholder.com/400x300"}/>
          
-                
         </Grid>
 
         <Grid padding="16px">
@@ -125,7 +145,7 @@ const PostWrite = (props) => {
 
         <Grid padding="16px">
           
-          {is_edit? (<Button text="게시글 수정" _onClick={editPost}></Button>) : (<Button text="게시글 작성" _onClick={addPost}></Button>)}
+          {is_edit? (<Button text="게시글 수정"  _onClick={editPost}></Button>) : (<Button text="게시글 작성"  _onClick={addPost}></Button>)}
         </Grid>
       </>
     );
@@ -147,6 +167,7 @@ display:none;
     background:#2a9257;
     color:#fff;
 }
+
 `;
 const Label = styled.label`
 width:100%;
@@ -154,7 +175,8 @@ text-align:center;
 font-size:1em;
 `;
 const TabMenu = styled.ul`
-
+width:100%;
+padding:0;
   font-weight: bold;
   display: flex;
   flex-direction: row;
@@ -163,8 +185,8 @@ const TabMenu = styled.ul`
   list-style: none;
 
   .submenu {
-    width:100% auto;
-    padding: 15px 10px;
+    width:100%;
+    padding: 0;
     cursor: pointer;
   }
 `;

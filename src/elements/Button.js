@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
+
 const Button = (props) => {
-    const {text, _onClick,is_addBtn, is_editBtn} = props;
+    const {text, _onClick,_disabled,is_addBtn, is_editBtn} = props;
 
     if(is_addBtn){
         return(
@@ -14,14 +15,14 @@ const Button = (props) => {
 
     if(is_editBtn){
         return(
-            <EditButton onClick={_onClick}>
+            <EditButton onClick={_onClick} >
                 {text} 
             </EditButton>
         );
     }
 
     return(
-        <BtnSubmit onClick={_onClick}>
+        <BtnSubmit onClick={_onClick} >
             {text} 
         </BtnSubmit>
     );
@@ -29,7 +30,8 @@ const Button = (props) => {
 
 Button.defaultProps={
     text:'텍스트',
-    _onClick:()=>{}
+    _onClick:()=>{},
+    _disabled:()=>{},
 }
 
 const BtnSubmit = styled.button`
@@ -42,6 +44,11 @@ background:#000;
 box-sizing:border-box;
 text-align:center;
 cursor:pointer;
+opacity:1;
+
+&.disabled{
+    opacity:0.5;
+}
 `;
 
 const AddButton = styled.button`

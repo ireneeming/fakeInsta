@@ -8,18 +8,20 @@ import { actionCreators as imageActions } from "./image";
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
 const EDIT_POST = "EDIT_POST";
-const LOADING = "LOADING"
+const LOADING = "LOADING";
+const DELETE = "DELETE";
 
 const setPost = createAction(SET_POST, (post_list, paging)=> ({post_list, paging}) );
 const addPost = createAction(ADD_POST, (post)=> ({post})) ;
 const editPost = createAction(EDIT_POST, (post_id, post)=>({post_id, post}));
 const loading = createAction(LOADING, (is_loading)=>({is_loading}));
+const deletePost = createAction(DELETE,(post_id)=>({post_id}));
 
 
 const initialState = {
     //리듀서가 사용할
     list: [],
-    paging: {start: null, next: null, size:2},
+    paging: {start: null, next: null, size:4},
     is_loading: false, 
 
 
@@ -36,7 +38,9 @@ const initialPost = {
     image_url:'https://images.unsplash.com/photo-1548247416-ec66f4900b2e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80',
     contents:'',
     comment_cnt : 0,
-    insert_dt : moment().format('YYYY-MM-DD hh:mm:ss'),
+    insert_dt : moment().format('YYYY-MM-DD HH:mm:ss'),
+    layout:'center',
+   
 };
 
 const editPostFB = (post_id=null, post={}) => {
@@ -94,7 +98,7 @@ const editPostFB = (post_id=null, post={}) => {
     }
 }
 
-const addPostFB = (contents="") =>{
+const addPostFB = (contents="", layout="center") =>{
     return function (dispatch, getState, {history}){
         const postDB = firestore.collection("post");
         const _user = getState().user.user;
@@ -107,7 +111,9 @@ const addPostFB = (contents="") =>{
         const _post = {
             ...initialPost,
             contents:contents,
-            insert_dt :moment().format('YYYY-MM-DD hh:mm:ss')
+            layout:layout,
+            
+            insert_dt :moment().format('YYYY-MM-DD HH:mm:ss')
         };
 
         const _image = getState().image.preview;
@@ -140,7 +146,7 @@ const addPostFB = (contents="") =>{
     }
 }
 
-const getPostFB = (start = null, size = 2) => {
+const getPostFB = (start = null, size = 4) => {
     return function (dispatch, getState,{history}) {
 
         let _paging = getState().post.paging;
@@ -245,6 +251,28 @@ const getOnePostFB = (id)=>{
     }
 }
 
+const deletePostFB = (post_id) => {
+    return function(dispatch, getState, {history}){
+
+        if(!post_id){
+            window.alert("아이디가 없네요!");
+            return;
+        }
+        const postDB = firestore.collection("post").doc(post_id);
+        postDB.
+        delete().then(doc=>{
+            console.log(doc,post_id );
+            dispatch(deletePost(post_id))
+            console.log(doc.data());
+            history.replace('/');
+
+
+        }).catch((err)=>{
+            window.alert('앗! 삭제에 문제가 있어요!');
+            console.log("앗! 삭제에 문제가 있어요!",err)
+        })
+    }
+}
 
 //reducer
 export default handleActions(
@@ -282,6 +310,11 @@ export default handleActions(
            draft.is_loading = action.payload.is_loading;
           
         }),
+        [DELETE] : (state,action)=> produce(state,(draft)=>{
+            let idx = draft.list.findIndex((p)=>p.id === action.payload.post_id);
+            draft.list.splice(idx,1)
+           
+         }),
 
     },
     initialState
@@ -296,6 +329,7 @@ const actionCreators={
     addPostFB,
     editPostFB,
     getOnePostFB,
+    deletePostFB
 
 }
 
