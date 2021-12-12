@@ -20,7 +20,5 @@
 * 모든페이지는 반응형 
 
 
-![image](https://user-images.githubusercontent.com/63698668/143990062-383f1b28-d1b9-469f-859f-c4a95941f039.png)
-
 
 
