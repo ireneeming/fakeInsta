@@ -7,7 +7,7 @@
 ## 내 프로젝트 명 : fakeinsta <br/>
 
 배포주소: https://fakeinsta-29b6b.firebaseapp.com/<br/>
-회고 velog : https://velog.io/@ireneeming/%ED%9A%8C%EA%B3%A0%EB%A1%9D-%ED%95%AD%ED%95%B4-99-5%EC%A3%BC%EC%B0%A8-%EC%A3%BC%ED%8A%B9%EA%B8%B0-%EC%8B%AC%ED%99%94%ED%8E%B8
+<a href="https://velog.io/@ireneeming/%ED%9A%8C%EA%B3%A0%EB%A1%9D-%ED%95%AD%ED%95%B4-99-5%EC%A3%BC%EC%B0%A8-%EC%A3%BC%ED%8A%B9%EA%B8%B0-%EC%8B%AC%ED%99%94%ED%8E%B8">[회고 velog 바로가기] </>
 <br/>
 컴포넌트 페이지 구성/필수기능: <br/>
 
