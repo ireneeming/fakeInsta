@@ -4,9 +4,11 @@
 순한맛ver. (제공된 <a href="https://www.figma.com/file/5GhEvvI68oIM7xOm6p3mIO/%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%BB%A4%EB%AE%A4%EB%8B%88%ED%8B%B0?node-id=1%3A2">기획서</a>) 
 
 
-## 내 프로젝트 명 : fakeinsta 
+## 내 프로젝트 명 : fakeinsta <br/>
 
-컴포넌트 페이지 구성/필수기능: 
+배포주소: http://junmyunglee.s3-website.ap-northeast-2.amazonaws.com/<br/>
+
+컴포넌트 페이지 구성/필수기능: <br/>
 
 * Register.js / email, pw 체크
 * Login.js / 미가입 시 로그인버튼 비활성화
